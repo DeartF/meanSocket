@@ -1,0 +1,22 @@
+.textarea {
+	padding: 10px 12px;
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	font-size: 14px;
+	resize: none;
+}
+
+	.textarea__chat {
+		width: calc(100% - 160px);
+		border: 1px solid #e8e8e8;
+		border-radius: 5px;
+	}
+
+	.textarea__chat:focus {
+		border-color: cornflowerblue;
+	}
+
+	.textarea__chat:focus::placeholder {
+		opacity: 0;
+	}

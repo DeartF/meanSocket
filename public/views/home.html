@@ -1,0 +1,68 @@
+<div class="container">
+	<div class="display-4"><span class="badge badge-info">Home Page</span></div>
+	<div class="d-flex align-items-center justify-content-between">
+		<h1 class="p-2">All posts list ({{vm.count}})</h1>
+
+		<div class="pagination">
+			<li class="pagination-item fa fa-caret-left" ng-click="vm.prevPage()"></li>
+			<li ng-class="{'active': vm.currentPage === (page + 1)}" class="pagination-item" ng-repeat="page in vm.pages track by $index" ng-bind="page+1" ng-click="vm.displayPage(page+1)"></li>
+			<li class="pagination-item fa fa-caret-right" ng-click="vm.nextPage()"></li>
+		</div>
+	</div>
+
+	<div class="spinner" ng-show="vm.isLoading"></div>
+
+	<div class="media border p-2 m-2 rounded" ng-repeat="post in vm.posts">
+		<img ng-src="{{ post.link }}" class="mr-3" style="width:100px;">
+	    <div class="media-body">
+	    	<div class="bg-light p-2 d-flex align-items-center justify-content-between">
+	    		<h4 ng-bind="post.title"></h4>
+	    		<span>Posted on: <span ng-bind="post.date | date: 'medium'"></span></span>
+	    	</div>
+	    	<div class="p-2">By: <span ng-bind="post.author"></span></div>
+	    	<p class="p-2" ng-bind="post.content"></p>
+	    	<div class="d-flex align-items-center justify-content-between px-2">
+	    		<button class="btn btn-info" ui-sref="post({id: post._id})"><i class="fa fa-info-circle"></i> More...</button>
+		    	<div>
+		    		<span>
+		    			<i class="fa fa-comments text-primary"></i>
+		    			<span ng-bind="post.comments.length"></span>
+		    		</span>
+			    	<span>
+		    			<img class="heart" src="/images/red-heart.svg">
+		    			<span ng-bind="post.liked_users.length"></span>
+		    		</span>
+		    	</div>
+	    		<img class="like" src="/images/red-heart.svg"  ng-click="vm.setLike(post._id, $index)" title="Like">
+			    <img class="like" src="/images/grey-heart.svg"  ng-click="vm.setLike(post._id, $index)" title="Like">
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+<section class="modal" ng-if="vm.objectToEdit != null">
+	<div class="modal__backdrop" ng-click="vm.closeModal()"></div>
+	<div class="modal__window">
+		<div class="modal__title">Edit Post</div>
+		<div class="modal__field">
+			<label for="title">Title:</label>
+			<input type="text" class="input input_modal" ng-model="vm.objectToEdit.title" id="title">
+		</div>
+		<div class="modal__field">
+			<label for="content">Content:</label>
+			<input type="text" class="input input_modal" ng-model="vm.objectToEdit.content" id="content">
+		</div>
+		<div class="modal__field">
+			<label for="author">Author:</label>
+			<input type="text" class="input input_modal" ng-model="vm.objectToEdit.author" id="author">
+		</div>
+		<img ng-src="{{ vm.objectToEdit.link }}" class="modal__image">
+		<button class="btn btn__blue" ng-click="vm.editPost()"><i class="fa fa-edit"></i> Edit</button>
+		<button class="btn btn__grey" ng-click="vm.closeModal()"><i class="fa fa-times"></i> Close</button>
+	</div>
+</section>
+
+
+
+
+

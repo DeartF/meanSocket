@@ -1,0 +1,48 @@
+/* 3rd party libraries */
+@import url('./vendor/reset.css');
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+/* Icons */
+@import url('https://use.fontawesome.com/releases/v5.1.0/css/all.css');
+/* Bootstrap 4 */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css');
+
+/* atoms */
+@import url('./components/textarea.css');
+@import url('./components/btn.css');
+
+/* moleculas */
+@import url('./pages/profile.css');
+@import url('./pages/home.css');
+@import url('./pages/blog-detail.css');
+@import url('./pages/header.css');
+@import url('./pages/auth.css');
+@import url('./pages/comment.css');
+@import url('./pages/filter.css');
+@import url('./pages/chat.css');
+
+.spinner {
+
+}
+
+    .spinner:before {
+        content: 'Loading…';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .spinner:not(:required):before {
+        content: '';
+        border-radius: 50%;
+        border: 3px solid #ccc;
+        border-top-color: #03ade0;
+        animation: spinner .6s linear infinite;
+    }
+
+@keyframes spinner {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}

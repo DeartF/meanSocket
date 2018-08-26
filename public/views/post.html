@@ -1,0 +1,71 @@
+<div class="container">
+	<div class="media p-2">
+		<img class="mr-2" ng-src="{{ vm.post.link }}" style="width:200px;">
+    	<div class="media-body">
+	    	<div class="bg-light p-2 d-flex align-items-center justify-content-between">
+	    		<h4 ng-bind="vm.post.title"></h4>
+	    		<span>Posted on: <span ng-bind="vm.post.date | date: 'medium'"></span></span>
+	    	</div>
+	    	<div class="p-2">By: <span ng-bind="vm.post.author"></span></div>
+	    	<p class="p-2" ng-bind="vm.post.content"></p>
+	    	<div class="p-2">	
+	    		<i class="fa fa-comments text-primary"></i>
+    			<span ng-bind="vm.post.comments.length"></span>
+    			<img class="heart" src="../images/red-heart.svg">
+    			<span ng-bind="vm.post.liked_users.length"></span>
+	    	</div>
+	    	<div ng-if="session" class="p-3">
+	    		<h4>Leave comment</h4>
+	    		<form ng-submit="vm.saveComment()" >
+		    		<div class="form-group">
+		    			<textarea class="form-control" ng-model="vm.body" required></textarea>
+		    		</div>
+					<button class="btn btn-primary" type="submit"><i class="fa fa-comment"></i> Comment</button>
+				</form>
+	    	</div>
+		</div>
+	</div>
+	<div class="media p-3" ng-repeat="comment in vm.post.comments">
+		<div class="media-body border rounded p-2">
+		<div class="bg-light p-2 d-flex align-items-center justify-content-between rounded">
+			<div class="fa fa-user"> <span ng-bind="comment.author_name"></span></div>
+			<span>Posted on: <span ng-bind="comment.date | date: 'medium'"></span></span>
+		</div>
+		<p class="p-2" ng-bind="comment.body"></p>
+		<button class="btn btn-light fa fa-edit" ng-if="session._id == comment.author" ng-click="vm.makeEditable(comment)" data-toggle="modal" data-target="#modal"></button>
+		<button class="btn btn-light fa fa-trash-alt" ng-if="session._id == comment.author" ng-click="vm.deleteComment($index, comment)"></button>
+		</div>
+	</div>
+	<!-- <form class="comment_edit" ng-if="vm.currentComment == $index">
+		<textarea class="comment_edit__input" type="text" class="form-control" ng-model="vm.objectToEdit.body" id="content"></textarea>
+		<button>Save Changes</button>
+		<button>Cancel</button> 
+	</form>   -->
+</div>
+
+
+<!-- MODAL -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+        	<h5 class="modal-title" id="exampleModalCenterTitle">Edit Comment</h5>
+        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          		<span aria-hidden="true">&times;</span>
+        	</button>
+      	</div>
+	    <div class="modal-body">
+	       	<div class="form-group">
+				<textarea type="text" class="form-control" ng-model="vm.objectToEdit.body" id="content"></textarea> 
+	        </div>
+	    </div>
+	    <div class="modal-footer">
+	        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button class="btn btn-primary" ng-click="vm.editComment()" data-dismiss="modal">Save changes</button>
+	    </div>
+    </div>
+  </div>
+</div>
+
+
+	
